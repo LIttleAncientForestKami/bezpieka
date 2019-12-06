@@ -1,4 +1,4 @@
-:icons: font
+:icons: fonts
 
 = Instalacja i obsługa PMD
 

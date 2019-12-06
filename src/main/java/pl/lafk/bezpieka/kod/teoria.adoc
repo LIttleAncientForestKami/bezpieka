@@ -1,0 +1,59 @@
+:icons: fonts
+[background-color="green"]
+= Pisanie bezpiecznego kodu
+
+zalecenia dla programisty
+
+== Można podzielić na kategorie
+
+. pisz bezpieczny kod - mniej wektorów ataku, bezpieczne API...
+. programuj defensywnie, zakładaj zły obrót sytuacji
+. programuj solidnie - klarownie, unikaj kruczków
+. kwestionuj i sprawdzaj mity
+. znaj co Jawa ma i wiedz gdzie i kiedy to gryzie
+
+=== Bezpieczny kod?
+
+. odpowiednie API (np. SecureRandom)
+. minimalizacja wektorów ataku (ekspozycji danych)
+. NIE nieodpowiednim API (serializacja, `clone`, `finalize`)
+
+=== Wczytywanie hasła
+
+[source, java, linenums]
+.Wersja 1: znajdź błędy, jeśli jakieś są
+----
+include::PasswordBad.java[]
+----
+
+[source, java, linenums]
+.Wersja 2: znajdź błędy, jeśli jakieś są
+----
+include::Password.java[]
+----
+
+Problemy:
+
+. System.exit to groźna metoda
+. String siedzi w puli, jest niezmienny
+. do tego widać hasło jak się komuś na ekran patrzy (metoda `readLine`)
+
+Rozwiązania:
+
+. ha cóż ha trudno. Potrzebujemy uciec jak coś z konsolą jest nie tak.
+. `char[]` na ratunek - można dzięki temu wyzerować po użyciu!
+. readPassword schowa dane za gwiazdkami
+
+IMPORTANT: Limituj ekspozycję czułych bądź krytycznych danych
+
+=== Limitowanie ekspozycji?
+
+. niech to znika z pamięci:
+.. niech śmieciarz to zeżre (zatem niekoniecznie String)
+.. bez hibernacji,
+.. bez przestrzeni wymiany (strony, ang. swap)
+.. uwaga na pamięć podręczną systemu! np. klasa `BufferedReader`
+. nie ujawniać za wiele
+.. w wyjątkach i ich komunikatach
+.. w dziennikach wszelakich
+.. zostawiając zrzuty pamięci czy wątków na danej maszynie po ich wykorzystaniu
