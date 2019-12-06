@@ -1,0 +1,33 @@
+:icons: fonts
+[background-color="green"]
+== Pisanie bezpiecznego kodu
+
+zalecenia dla programisty
+
+=== Można podzielić na kategorie
+
+. pisz bezpieczny kod - mniej wektorów ataku, bezpieczne API...
+. programuj defensywnie, zakładaj zły obrót sytuacji
+. programuj solidnie - klarownie, unikaj kruczków
+. kwestionuj i sprawdzaj mity
+. znaj co Jawa ma i wiedz gdzie i kiedy to gryzie
+
+=== Bezpieczny kod?
+
+. odpowiednie API (np. SecureRandom)
+. minimalizacja wektorów
+. NIE nieodpowiednim API (serializacja, `clone`, `finalize`)
+
+=== !
+
+[source, java, linenums]
+----
+include::../kod/PasswordBad.java[]
+----
+=== !
+
+[source, java, linenums]
+----
+include::../kod/Password.java[]
+----
+
