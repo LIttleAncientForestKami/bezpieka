@@ -1,0 +1,26 @@
+# Taken from a book: Java Coding Guidelines: 75 recommendations for reliable and secure programs
+dn: dc=example,dc=com
+objectclass: dcobject
+objectClass: organization
+o: Some Name
+
+dc: example
+dn: ou=People,dc=example,dc=com
+ou: People
+objectClass: dcobject
+objectClass: organizationalUnit
+
+dc: example
+dn: cn=Manager,ou=People,dc=example,dc=com
+cn: Manager
+sn: John Watson
+# Several objectClass definitions here (omitted)
+userPassword: secret1
+mail: john@holmesassociates.com
+
+dn: cn=Senior Manager,ou=People,dc=example,dc=com
+cn: Senior Manager
+sn: Sherlock Holmes
+# Several objectClass definitions here (omitted)
+userPassword: secret2
+mail: sherlock@holmesassociates.com

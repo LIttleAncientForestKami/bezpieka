@@ -11,3 +11,4 @@ Autor: @LAFK_pl
 == Kolejność
 
 . automatyka.pmd
+. kod

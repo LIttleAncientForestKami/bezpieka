@@ -57,3 +57,41 @@ IMPORTANT: Limituj ekspozycję czułych bądź krytycznych danych
 .. w wyjątkach i ich komunikatach
 .. w dziennikach wszelakich
 .. zostawiając zrzuty pamięci czy wątków na danej maszynie po ich wykorzystaniu
+
+
+=== Ćwiczenie
+
+Otwórz `CzytaniePliku` i idź za instrukcjami tam.
+
+== Wstrzykiwanie
+
+Można wstrzykiwać:
+
+. SQLe
+. skrypty (JS, TS, ASP...)
+. XMLa, JSONa, YAMLa...
+. LDAPa
+. kod
+. pliki
+. komendy
+. parametry tychże
+. itp. itd.
+
+=== Ćwiczenie
+
+Pobawmy się JShellem: pakiet `kod`, pliki `gvim`.
+Windziarze: zastąpcie to komendą np. `notepad`.
+
+=== Jak się bronić?
+
+WARNING: nigdy nie ufaj danym z zewnątrz
+
+. co przychodzi z zewnątrz trza prześwietlić
+.. białe i czarne listy znaków
+.. znaj techniki wstrzykiwania
+. limituj wektor ataku!
+.. biała lista dozwolonych wejść
+.. nie akceptuj wszystkiego
+
+
+NOTE: Limitacja jest nieźle osiągana w dobrym kodzie obiektowym. Zamiast "co jest dobrym SQLem wchodzi" robisz obiekt DaneWejściowe i limitujesz co tam ma być.
