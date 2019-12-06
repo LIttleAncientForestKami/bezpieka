@@ -1,12 +1,13 @@
-= About bezpieczna-Jawa
+= O projekcie bezpieczna-Jawa
 
-What is it:
-Purpose: 
-Author: @LAFK_pl
+Cel: warsztaty przybliżające jak pisać bezpieczniejszy kod Jawy.
+Autor: @LAFK_pl
 
-== Launching
+== Uruchamianie
 
-1. Prerequisites: JDK 11, Debian-derivatives, Maven 3
-2. Setup: nothing aside from prerequisites
-3. Launch: `mvn clean install; cd target; java -jar bezpieczna-Jawa.jar #or bezpieczna-Jawa-versionNumbers.jar`
+1. Wymagane: JDK 11, najlepiej na pochodnej Debiana (na tym to pisałem), Maven 3.5
+2. By uruchomić: `mvn clean install; cd target; java -jar bezpieczna-Jawa.jar #or bezpieczna-Jawa-versionNumbers.jar`
 
+== Kolejność
+
+. automatyka.pmd
