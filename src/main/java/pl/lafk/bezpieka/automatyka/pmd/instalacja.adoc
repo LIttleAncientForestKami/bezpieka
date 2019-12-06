@@ -1,0 +1,116 @@
+:icons: font
+
+= Instalacja i obsługa PMD
+
+PMD :: Please, Don't shoot the Messenger, program do statycznej analizy kodu
+
+Wtyka PMD :: Mavenowa wtyczka, używająca PMD
+
+Czyli np., wtyczka 3.9, używa PMD 6.0.
+
+Najnowsze PMD to 6.20, tak przy okazji.
+
+== Z Maven Central
+
+[source, xml]
+.by mieć PMD w build > plugins > plugin piszemy
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${version.plugin.maven.pmd}</version>
+
+Polecam też w `<properties>` wersję ustawić na `3.9.0`.
+
+== Pomoc?
+
+TIP: `git checkout start`
+
+Niegłupie byłoby odpalić polecenia z `TODO Złej klasy`. I poczytać.
+
+=== PMD dla Mavena
+
+. `pmd:pmd` - tworzy raport w kilku formatach
+. `pmd:cpd` - j.w. dla narzędzia Copy-Paste Detector
+. `pmd:check` - domyślnie przy `pmd`
+. `cpd:check` - j.w. przy `cpd`
+
+=== Demo PMD
+
+. wpięcie do POMa
+. `mvn pmd:pmd`, per `ZłaKlasa`
+
+== Wpinanie w budowę
+
+TIP: `git checkout pmd-budowa`
+
+. Z automatu nie mamy PMD. Trzeba je wpiąć.
+. Powyższe wpina i pozwala nam z niego skorzystać - ale ręcznie.
+. By PMD startowało przy każdej budowie...
+
+[source, xml]
+.pełna konfiguracja do wpięcia w build > plugins
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${version.plugin.maven.pmd}</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                            <goal>cpd-check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+=== Drugie demo PMD
+
+. wpięcie do POMa
+. zmiana faz
+. `mvn pmd:pmd`, per `ZłaKlasa`
+
+Za: https://maven.apache.org/plugins/maven-pmd-plugin/examples/violationChecking.html
+
+=== Trzecie demo PMD
+
+. wpięcie do POMa
+. zmiana faz
+. `mvn pmd:pmd`, per `ZłaKlasa`
+. *jaka jest różnica?*
+
+=== Czwarte demo PMD
+
+. wpięcie do POMa
+. zmiana faz
+. `mvn pmd:pmd`, per `ZłaKlasa`
+. raport
+. reguły
+. dodanie reguł
+
+=== Pusty raport i co dalej
+
+. brawo! tak ma być.
+.. chyba, że nie powinno.
+. jak niepusty, to jest się czym martwić.
+
+=== PMD własny zestaw reguł
+
+https://github.com/leanstacks/spring-boot-fundamentals/blob/master/etc/pmd/ruleset.xml
+
+[source, XML]
+.rodzaje zestawów reguł (po źródle) jakie można wpinać
+<configuration>
+      <rulesets>
+        <!-- wbudowane -->
+        <ruleset>/category/java/bestpractices.xml</ruleset>
+        <!-- lokalne -->
+        <ruleset>/home/USER/PMD/rulesets/strings.xml</ruleset>
+        <!-- via URL -->
+        <ruleset>http://localhost/design.xml</ruleset>
+      </rulesets>
+</configuration>
+
+
+=== PMD i Owasp 2010
+
+https://github.com/GDSSecurity/GDS-PMD-Security-Rules
