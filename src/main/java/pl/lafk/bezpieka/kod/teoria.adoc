@@ -1,10 +1,10 @@
 :icons: fonts
 [background-color="green"]
-== Pisanie bezpiecznego kodu
+= Pisanie bezpiecznego kodu
 
 zalecenia dla programisty
 
-=== Można podzielić na kategorie
+== Można podzielić na kategorie
 
 . pisz bezpieczny kod - mniej wektorów ataku, bezpieczne API...
 . programuj defensywnie, zakładaj zły obrót sytuacji
@@ -15,19 +15,83 @@ zalecenia dla programisty
 === Bezpieczny kod?
 
 . odpowiednie API (np. SecureRandom)
-. minimalizacja wektorów
+. minimalizacja wektorów ataku (ekspozycji danych)
 . NIE nieodpowiednim API (serializacja, `clone`, `finalize`)
 
-=== !
+=== Wczytywanie hasła
 
 [source, java, linenums]
+.Wersja 1: znajdź błędy, jeśli jakieś są
 ----
-include::../kod/PasswordBad.java[]
+include::PasswordBad.java[]
 ----
-=== !
 
 [source, java, linenums]
+.Wersja 2: znajdź błędy, jeśli jakieś są
 ----
-include::../kod/Password.java[]
+include::Password.java[]
 ----
 
+Problemy:
+
+. System.exit to groźna metoda
+. String siedzi w puli, jest niezmienny
+. do tego widać hasło jak się komuś na ekran patrzy (metoda `readLine`)
+
+Rozwiązania:
+
+. ha cóż ha trudno. Potrzebujemy uciec jak coś z konsolą jest nie tak.
+. `char[]` na ratunek - można dzięki temu wyzerować po użyciu!
+. readPassword schowa dane za gwiazdkami
+
+IMPORTANT: Limituj ekspozycję czułych bądź krytycznych danych
+
+=== Limitowanie ekspozycji?
+
+. niech to znika z pamięci:
+.. niech śmieciarz to zeżre (zatem niekoniecznie String)
+.. bez hibernacji,
+.. bez przestrzeni wymiany (strony, ang. swap)
+.. uwaga na pamięć podręczną systemu! np. klasa `BufferedReader`
+. nie ujawniać za wiele
+.. w wyjątkach i ich komunikatach
+.. w dziennikach wszelakich
+.. zostawiając zrzuty pamięci czy wątków na danej maszynie po ich wykorzystaniu
+
+
+=== Ćwiczenie
+
+Otwórz `CzytaniePliku` i idź za instrukcjami tam.
+
+== Wstrzykiwanie
+
+Można wstrzykiwać:
+
+. SQLe
+. skrypty (JS, TS, ASP...)
+. XMLa, JSONa, YAMLa...
+. LDAPa
+. kod
+. pliki
+. komendy
+. parametry tychże
+. itp. itd.
+
+=== Ćwiczenie
+
+Pobawmy się JShellem: pakiet `kod`, pliki `gvim`.
+Windziarze: zastąpcie to komendą np. `notepad`.
+
+=== Jak się bronić?
+
+WARNING: nigdy nie ufaj danym z zewnątrz
+
+. co przychodzi z zewnątrz trza prześwietlić
+.. białe i czarne listy znaków
+.. znaj techniki wstrzykiwania
+. limituj wektor ataku!
+.. biała lista dozwolonych wejść
+.. nie akceptuj wszystkiego
+
+
+NOTE: Limitacja jest nieźle osiągana w dobrym kodzie obiektowym. Zamiast "co jest dobrym SQLem wchodzi" robisz obiekt DaneWejściowe i limitujesz co tam ma być.
