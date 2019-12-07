@@ -30,6 +30,7 @@
         <version.plugin.maven.reporting>2.6</version.plugin.maven.reporting>
         <version.plugin.maven.pmd>3.12.0</version.plugin.maven.pmd>
         <version.plugin.maven.jxr>2.3</version.plugin.maven.jxr>
+        <version.plugin.maven.spotbugs>3.1.12</version.plugin.maven.spotbugs>
 
     </properties>
 
@@ -110,8 +111,16 @@
 <!-- if diff enconding than UTF8 is needed: https://maven.apache.org/plugins/maven-resources-plugin/examples/encoding.html -->
                 <version>${version.plugin.maven.resources}</version>
             </plugin>
+
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${version.plugin.maven.spotbugs}</version>
+            </plugin>
+
         </plugins>
     </build>
+
     <reporting>
         <outputDirectory>raporty</outputDirectory>
         <plugins>
@@ -136,6 +145,12 @@
     <!-- https://maven.apache.org/plugins/maven-pmd-plugin/check-mojo.html -->
                     <failurePriority>2</failurePriority>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${version.plugin.maven.spotbugs}</version>
             </plugin>
 
         </plugins>
