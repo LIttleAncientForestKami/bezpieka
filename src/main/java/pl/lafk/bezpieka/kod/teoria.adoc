@@ -95,3 +95,94 @@ WARNING: nigdy nie ufaj danym z zewnątrz
 
 
 NOTE: Limitacja jest nieźle osiągana w dobrym kodzie obiektowym. Zamiast "co jest dobrym SQLem wchodzi" robisz obiekt DaneWejściowe i limitujesz co tam ma być.
+
+=== Porządek inicjalizacji w Jawie i cykle
+
+. kolejność ma znaczenie
+. statyczne jako zależność - ostrożnie
+
+[source,java]
+.Czy tu jest błąd? Jakie rezultaty przewidujesz?
+----
+include::Cycle.java[]
+----
+
+[source,java]
+.Jakie rezultaty przewidujesz?
+----
+include::CycleRearranged.java[]
+----
+
+W pierwszym przypadku inicjalizacja pola losowanego następuje za późno. Rezultatem jest -10. W drugim rezultat może być -10 jeśli pole zostanie ustawione na zero (jest pewna szansa).
+
+=== Obiektowe programowanie a bezpieczeństwo
+
+[%steps]
+. enkapsulacja, ochrona stanu,
+.. smutny przypadek `public`
+.. niewidoczny specyfikator jest domyślny
+. interfejs > klasa abstrakcyjna
+. kompozycja > dziedziczenie
+. MODUŁY
+
+WARNING: wewnętrzne klasy mają dostęp do klas w których są deklarowane
+
+=== Moduły a bezpieczeństwo?
+
+[quote, Java Specification Request (JSR) 376]
+Casual use of APIs that are internal to Java SE Platform implementations is both a
+security risk and a maintenance burden. The strong encapsulation provided by the
+proposed specification will allow components that implement the Java SE Platform to
+prevent access to their internal APIs.
+
+=== JDK9 moduły
+
+[%step]
+. nowy poziom enkapsulacji - moduły
+. ścieżka klas -> modułów - **mniej do skanowania**
+. nienazwany moduł (ang. unnamed module)
+. `module-info.java`
+
+=== !
+
+[source, java, linenums]
+.Przykładowe module-info.java
+----
+include::../../../../../../../module-info.java[]
+----
+
+=== Co widać, czego nie?
+
+Publiczne i pakietowe API z pakietów
+
+. requires - konieczny, tam my patrzymy
+. exports - udostępnione pakiety (komuś konieczne)
+. opens - niedokładnie ale: otwiera wszystko
+. uses - korzysta z usługi
+. provides - dostarcza usługi
+
+=== Udostępnianie pakietów z modułu
+
+[quote, JLS 12, 7.7.2]
+The exports directive specifies the name of a package to be exported by the current
+module. For code in other modules, this grants access at compile time and run time
+to the public and protected types in the package, and the public and protected
+members of those types (§6.6).
+ It also grants reflective access to those types and
+members for code in other modules.
+
+=== JDK9 i bezpieczeństwo
+
+. ma filtr deserializacji
+. limit pamięci z `cgroups` jest respektowany (ola! konteneros!)
+. dalsze wersje wycinają niebezpieczne API
+. ma podbite standardy bezpieczeństwa
+
+=== JDK9 - bezpieka w górę!
+
+. JEP219: Datagram Transport Layer Security,
+. JEP244: TLS ALPN (App Layer Protocol Negotiation),
+. JEP249: OCSP Stapling for TLS,
+. JEP273: mocniejsze SecureRandom w oparciu o DBRG
+. JEP287: `MessageDigest` API ma SHA-3
+. JEP288: disable SHA1 certyfikat
