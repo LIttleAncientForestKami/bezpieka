@@ -145,10 +145,32 @@ PMD regułami stoi.
 
 . zerknijmy na `target/maven-pmd-plugin-default.xml`
 . wersja w Gicie Mavena: https://gitbox.apache.org/repos/asf?p=maven-pmd-plugin.git;a=blob_plain;f=src/main/resources/rulesets/java/maven-pmd-plugin-default.xml;hb=HEAD
+. wtyka zaciąga własne PMD, które
+.. rozpoznaje te reguły jakie zna
+.. i tak pogrupowane jak ma
+
+TIP: możesz się dowiedzieć "nie znam takiej reguły", bo w dokumentacji patrzysz na nowszą wersję PMD (lub podajesz zestaw który zmienił nazwę lub ścieżkę)! https://stackoverflow.com/questions/27571148/adding-a-ruleset-to-pmd[Przykład]
+
+=== Reguła?
+
+. klasa Jawowa
+. plik XML
+. nie dziś raczej
+
+TIP: https://www.i-love-software-engineering.de/writing-your-own-custom-pmd-rules-pmd-eclipse-maven/[dobra lektura w temacie]
+
+Zwykle ludzie zaczynają od zabawy zestawami już istniejącymi
+
+=== Ćwiczenie
+
+Niech Twoje PMD wykorzysta zestawy:
+[source,xml]
+                       <ruleset>rulesets/java/braces.xml</ruleset>
+                       <ruleset>rulesets/java/naming.xml</ruleset>
+
+CAUTION: ostrzeżenia o przestarzałych regułach nie są niczym strasznym po prostu przeczytać i podmienić
 
 === PMD własny zestaw reguł
-
-https://github.com/leanstacks/spring-boot-fundamentals/blob/master/etc/pmd/ruleset.xml
 
 [source, XML]
 .rodzaje zestawów reguł (po źródle) jakie można wpinać
@@ -163,6 +185,23 @@ https://github.com/leanstacks/spring-boot-fundamentals/blob/master/etc/pmd/rules
       </rulesets>
 </configuration>
 
+=== Ćwiczenie: weźmy cudzy zestaw!
+
+https://github.com/leanstacks/spring-boot-fundamentals/blob/master/etc/pmd/ruleset.xml
+
+i wykorzystajmy go u nas
+
+=== Ćwiczenie: modernizacja zestawu
+
+pozbądźmy się ostrzeżeń z zestawu leanstack
+
+=== Ćwiczenie: dodanie reguł bezpieczeństwa
+
+do zmodernizowanego zestawu powyżej, dodajmy reguły stąd:
+
+https://pmd.github.io/pmd-6.13.0/pmd_rules_java_security.html
+
+sprawdźmy, że one działają na nowym kodzie!
 
 === PMD i Owasp 2010
 
