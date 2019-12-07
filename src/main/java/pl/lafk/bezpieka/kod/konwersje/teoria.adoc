@@ -1,0 +1,81 @@
+:icons: fonts
+= Podstawowe typy w Jawie i zakulisowe problemy
+
+. realia standardu `float` - jak binarnie reprezentować dziesiętne ułamki?
+. konwersje stratne
+. przekręcanie licznika w obliczeniach
+. znaki w Unicode: różne długości kodowań!
+. Unicode i `Character`: API z `int`, nie z `char`
+. `String` na zawsze w pamięci bo pula
+. `char[]` > `String` jak o hasła idzie: np. `Arrays.fill`
+
+== Przekręcanie licznika
+
+. brak symetrii typów:
+.. więcej po jednej stronie niż po drugiej,
+.. `-a > a`
+. przepływ typu MAX->MIN a metody z `Math.xExact()`
+
+== Hierarchia typów numerycznych
+
+. byte - short - int - long
+. float - double
+
+== Utrata precyzji
+
+19 konwersji rozszerzających
+
+. byte do czegokolwiek innego
+. short do czegoś powyżej siebie
+. char - jest reprezentowany jako liczby
+. int do long, float, double
+. long do float i double
+
+== JLS?
+
+[quote, JLS on conversion and promotion]
+    A widening primitive conversion from float to double that is not strictfp may
+lose information about the overall magnitude of the converted value.
+    A widening primitive conversion from int to float , or from long to float , or
+from long to double , may result in loss of precision - that is, the result may lose
+some of the least significant bits of the value. In this case, the resulting floating-
+point value will be a correctly rounded version of the integer value, using IEEE
+754 round-to-nearest mode (§4.2.4).
+
+== Czyli... które tracą?
+
+. float do double jeśli bez strictfp
+. int do float, jeśli więcej niż 9 cyfr inta
+. long do float, jeśli więcej niż 9 cyfr longa
+. long do double, jeśli więcej niż 17 cyfr longa
+
+CAUTION: Utrata **wielkości** a nie **precyzji** może nastąpić w przypadku konwersji `float` -> `double`
+
+== Wszystko po cichu
+
+JLS wymaga cichej konwersji - wyjątek nie poleci.
+
+== Świetne wyjaśnienie
+
+słowo o bitach i o standardzie IEEE-754
+
+http://floating-point-gui.de
+
+TIP: szczerze polecam!
+
+=== Utrata precyzji x2
+
+[%step]
+. byte do czegokolwiek innego (5)
+. short do czegoś powyżej siebie (4)
+. int do long, float, double (3)
+. long do float i double (2)
+. razem 15, dodając float do double?
+. 19 konwersji rozszerzających?
+
+=== Znaki
+
+Znak reprezentujemy na liczbach.
+Jest `IntStream`, nie ma `CharStream`, prawda?
+W Unicode - tzw. "code points"
+
