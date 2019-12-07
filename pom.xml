@@ -29,6 +29,8 @@
         <version.plugin.maven.resources>3.1.0</version.plugin.maven.resources>
         <version.plugin.maven.reporting>2.6</version.plugin.maven.reporting>
         <version.plugin.maven.pmd>3.12.0</version.plugin.maven.pmd>
+        <version.plugin.maven.jxr>2.3</version.plugin.maven.jxr>
+
     </properties>
 
     <dependencies>
@@ -75,11 +77,14 @@
                         </manifestEntries>
                     </archive>
                 </configuration>
-            </plugin>                 
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>${version.plugin.maven.pmd}</version>
+                <configuration>
+                    <linkXRef>false</linkXRef>
+                </configuration>
                 <executions>
                     <execution>
 <!-- TODO: domyślna faza to verify -->
@@ -117,6 +122,16 @@
                         </reports>
                     </reportSet>
                 </reportSets>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${version.plugin.maven.pmd}</version>
+                <configuration>
+    <!-- https://maven.apache.org/plugins/maven-pmd-plugin/check-mojo.html -->
+                    <failurePriority>2</failurePriority>
+                </configuration>
             </plugin>
 
         </plugins>

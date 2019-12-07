@@ -33,7 +33,7 @@ Niegłupie byłoby odpalić polecenia z `TODO Złej klasy`. I poczytać.
 . `pmd:check` - domyślnie przy `pmd`
 . `cpd:check` - j.w. przy `cpd`
 
-=== Demo PMD
+== Demo PMD
 
 . wpięcie do POMa
 . `mvn pmd:pmd`, per `ZłaKlasa`
@@ -63,7 +63,7 @@ TIP: `git checkout pmd-budowa`
                 </executions>
             </plugin>
 
-=== Drugie demo PMD
+== Drugie demo PMD
 
 . wpięcie do POMa
 . zmiana faz
@@ -71,27 +71,80 @@ TIP: `git checkout pmd-budowa`
 
 Za: https://maven.apache.org/plugins/maven-pmd-plugin/examples/violationChecking.html
 
-=== Trzecie demo PMD
+== Trzecie demo PMD
 
 . wpięcie do POMa
 . zmiana faz
 . `mvn pmd:pmd`, per `ZłaKlasa`
 . *jaka jest różnica?*
 
-=== Czwarte demo PMD
+== Czwarte demo PMD
 
 . wpięcie do POMa
 . zmiana faz
 . `mvn pmd:pmd`, per `ZłaKlasa`
 . raport
-. reguły
-. dodanie reguł
+
+[[NOTE]]
+.Problem z Xrefem
+____
+Jeśli w konsoli leci:
+`[WARNING] Unable to locate Source XRef to link to - DISABLED`
+
+to:
+<linkXref>false</linkXref>
+w konfiguracji (sekcja build, nie reporting!) - ponoć we własnościach projektu też się da
+
+[source,xml]
+.dodajmy jxr do skakania po źródach w raportach
+<reporting>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jxr-plugin</artifactId>
+            <version>2.3</version>
+        </plugin>
+    </plugins>
+</reporting>
+
+JXR to wtyka umożliwiająca przegląd kodu w raportach Mavena.
+Daje też możliwość skoku do źródeł tamże (PMD zgłasza problem w linii 4 pliku Coś.java, linia jest linkiem).
+
+*Czemu ktoś miałby z tego rezygnować?*
+
+. Może wydłużać czas budowy.
+. Jenkinsowe narzędzia potrafią to obsłużyć same z siebie, bez JXRa.
+____
+
+=== Ćwiczenie
+
+. wygenerujmy raport PMD gdzie można skakać do źródeł
+. usuńmy łącza i wtykę JXR ale straćmy też ostrzeżenie
+
+=== Konfiguracja PMD
+
+Za: https://maven.apache.org/plugins/maven-pmd-plugin/check-mojo.html
+
+Albo przez Intellij: wejdź do POMa i
+
+. sekcja reporting, wtyka PMD, znacznik `<configuration>`
+. _Ctrl_+_Space_
 
 === Pusty raport i co dalej
 
 . brawo! tak ma być.
 .. chyba, że nie powinno.
-. jak niepusty, to jest się czym martwić.
+.. jak niepusty, to jest się czym martwić.
+. dodajmy regułę
+. pozmieniajmy zestawy reguł
+. dodajmy własny zestaw reguł
+
+== Reguły
+
+PMD regułami stoi.
+
+. zerknijmy na `target/maven-pmd-plugin-default.xml`
+. wersja w Gicie Mavena: https://gitbox.apache.org/repos/asf?p=maven-pmd-plugin.git;a=blob_plain;f=src/main/resources/rulesets/java/maven-pmd-plugin-default.xml;hb=HEAD
 
 === PMD własny zestaw reguł
 
