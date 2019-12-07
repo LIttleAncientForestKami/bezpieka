@@ -9,7 +9,7 @@ import java.util.Hashtable;
 /**
  * Example of LDAP injection, taken from a book.
  *
- * @see file LDAP.ldif (LDAP Data Interchange Format)
+ * @see <a href=file://LDAP.ldif>file LDAP.ldif (LDAP Data Interchange Format)</a>
  * @author Java Coding Guidelines: 75 recommendations for reliable and secure programs
  */
 // String userSN = "S*"; // Invalid

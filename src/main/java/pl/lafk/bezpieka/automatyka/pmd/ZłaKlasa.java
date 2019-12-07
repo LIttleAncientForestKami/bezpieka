@@ -7,7 +7,7 @@ package pl.lafk.bezpieka.automatyka.pmd;
  * TODO:
  * 1. użyj <pre>mvn compile</pre>
  * 2. użyj <pre>mvn pmd:help</pre>
- * 3. użyj <pre>mvn pmd:help -Ddetail=true -Dgoal=<tu cel jaki Cię interesuje></pre>
+ * 3. użyj <pre>mvn pmd:help -Ddetail=true -Dgoal=[tu cel jaki Cię interesuje]</pre>
  * 4. poczytaj przez chwilę
  * 5. użyj <pre>mvn pmd:pmd</pre>
  * 6. zerknij w katalog <pre>target</pre>, na oba pliki XML
